@@ -13,12 +13,20 @@ import requests
 
 from typing import Any, Dict, List, Optional, Sequence, Union
 
-# from .config import key
+# from .config import options
 
 BASE_URL = "http://api.e-stat.go.jp/rest/3.0/app/"
 BASE_URL_JSON = BASE_URL + "json/"
 
 
+def get_list(key=None, lang=None):
+    pass
 
 
+
+def get_meta():
+    pass
+
+def get_data():
+    pass
 
