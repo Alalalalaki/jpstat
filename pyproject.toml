@@ -14,6 +14,7 @@ keywords = ["estat", "japan", "statistics", "economics", "data"]
 [tool.poetry.dependencies]
 python = "^3.7"
 pandas = "^1.1.2"
+requests = "^2.24.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
