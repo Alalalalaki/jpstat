@@ -64,3 +64,6 @@ docs/_api
 docs/_build
 docs/_downloads
 docs/_notebooks
+
+# develop note files
+DevNotes/
