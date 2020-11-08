@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "estat"
-version = "0.1.0"
+version = "0.0.1"
 description = "A library for accessing official statistics of Japan."
 authors = ["Xuanli Zhu <akaguro.koyomi@gmail.com>"]
 license = "MIT"
