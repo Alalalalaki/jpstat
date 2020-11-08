@@ -1,8 +1,7 @@
 """
 This file reads in a configuration file if one already exists
 and if one does not exist then it creates one
-
-Ref: https://github.com/QuantEcon/qeds/blob/master/qeds/data/config.py
+The code is largely borrowed from https://github.com/QuantEcon/qeds/blob/master/qeds/data/config.py
 """
 import configparser
 import os
@@ -78,6 +77,12 @@ _valid_options = {
             "api_key",
             None,
             """API key for accessing data from e-Stat API. Obtain one at https://www.e-stat.go.jp/api/""",
+            _no_validation
+        ),
+        Option(
+            "environment_variable",
+            "ESTAT_API_KEY",
+            "Environment variable to search for api_key for eStat",
             _no_validation
         ),
         Option(
@@ -246,7 +251,7 @@ options = _DictOptions()
 
 
 def describe_options():
-    msg = "qeds configuration options are:\n\n"
+    msg = "estat configuration options are:\n\n"
     for (sec, options) in _valid_options.items():
         msg += sec + "\n"
         for o in options:
