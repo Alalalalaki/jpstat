@@ -1,7 +1,8 @@
 """
 This file reads in a configuration file if one already exists
 and if one does not exist then it creates one
-The code is largely borrowed from https://github.com/QuantEcon/qeds/blob/master/qeds/data/config.py
+
+The code refers to https://github.com/QuantEcon/qeds/blob/master/qeds/data/config.py
 """
 import configparser
 import os
@@ -12,7 +13,7 @@ import warnings
 
 # Get home directory and config file
 _home = str(pathlib.Path.home())
-_BASE_PATH = os.path.join(_home, ".estat")
+_BASE_PATH = os.path.join(_home, ".jpstat")
 CFG_FILE = os.path.join(_BASE_PATH, "config.ini")
 BASE_DATA_DIR = os.path.join(_BASE_PATH, "data")
 
@@ -74,6 +75,22 @@ _valid_options = {
     ],
     "options": [
         Option(
+            "file_format",
+            "csv",
+            "File format for saving loaded data",
+            _member_validation(["pkl", "csv", "feather"])
+        ),
+        Option(
+            "log_level",
+            "CRITICAL",
+            "Default level for filtering logging messages",
+            _member_validation([
+                "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTSET"
+            ])
+        )
+    ],
+    "estat": [
+        Option(
             "api_key",
             None,
             """API key for accessing data from e-Stat API. Obtain one at https://www.e-stat.go.jp/api/""",
@@ -92,19 +109,11 @@ _valid_options = {
             _member_validation(["J", "E"])
         ),
         Option(
-            "file_format",
-            "csv",
-            "File format for saving loaded data",
-            _member_validation(["csv", "pkl"])
+            "data_dir",
+            os.path.join(BASE_DATA_DIR, "estat"),
+            "Directory to store the supplementary files for estat",
+            _no_validation
         ),
-        Option(
-            "log_level",
-            "CRITICAL",
-            "Default level for filtering logging messages",
-            _member_validation([
-                "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTSET"
-            ])
-        )
     ],
 }
 

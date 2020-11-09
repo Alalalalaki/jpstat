@@ -7,7 +7,7 @@ To-Do:
 
 import pandas as pd
 
-from . import config
+from .. import config
 from .api import API
 from .util.clean import clean_dict_cols
 

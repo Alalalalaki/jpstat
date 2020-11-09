@@ -1,6 +1,6 @@
 import string
 import warnings
-from ..config import _get_option
+from ...config import _get_option
 
 
 class ParaError(Exception):
@@ -30,7 +30,7 @@ def validate_api_key(key):
         raise ValueError(msg)
 
 
-_get_option("options", "api_key").validator = validate_api_key
+_get_option("estat", "api_key").validator = validate_api_key
 
 
 def validate_list_para(params):

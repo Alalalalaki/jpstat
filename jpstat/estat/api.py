@@ -16,7 +16,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from typing import Any, Dict, List, Optional, Sequence, Union
 
-from .config import options, setup_logger
+from ..config import options, setup_logger
 from .util.validate import ParaError, QueryError, validate_list_para, validate_query
 
 LOGGER = setup_logger(__name__)
@@ -25,18 +25,18 @@ LOGGER = setup_logger(__name__)
 class API:
     def __init__(self, key=None, lang=None):
         if key is None:
-            KEY_ENV_NAME = options["options.environment_variable"]
+            KEY_ENV_NAME = options["estat.environment_variable"]
             if KEY_ENV_NAME in os.environ:
                 key = os.environ[KEY_ENV_NAME]
-            elif options["options.api_key"] is not None:
-                key = options["options.api_key"]
+            elif options["estat.api_key"] is not None:
+                key = options["estat.api_key"]
             else:
                 url = "https://www.e-stat.go.jp/api/"
                 msg = f"BLS API key not detected. Please make one at {url}"
-                msg += " and call `estat.options['options.api_key']=key`"
+                msg += " and call `estat.options['estat.api_key']=key`"
                 raise EnvironmentError(msg)
         if lang is None:
-            lang = options["options.data_lang"]
+            lang = options["estat.data_lang"]
 
         self.key = key
         self.lang = lang

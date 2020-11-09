@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "eStat"
+name = "jpstat"
 version = "0.0.1"
 description = "A library for accessing official statistics of Japan."
 authors = ["Xuanli Zhu <akaguro.koyomi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/alalalalaki/estat"
-repository = "https://github.com/alalalalaki/estat"
+homepage = "https://github.com/alalalalaki/jpstat"
+repository = "https://github.com/alalalalaki/jpstat"
 keywords = ["estat", "japan", "statistics", "economics", "data"]
 
 
