@@ -47,6 +47,12 @@ You can pass the estat api key to each function. Or you can set a configuration
 jpstat.options["estat.api_key"] = "MY_API_KEY"
 ```
 
+You can also set the language from Japanese (default: J) to English
+
+```python
+jpstat.options["estat.lang"] = "E"
+```
+
 To see a list of valid configuration options
 
 ```python
