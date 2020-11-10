@@ -4,7 +4,7 @@ A python package for accessing the official statistics of Japan.
 
 ## Features
 
-- [estat api](estat-api)
+- [estat api](#estat-api)
 - ...
 
 ## Install
