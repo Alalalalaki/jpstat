@@ -76,7 +76,7 @@ _valid_options = {
     "options": [
         Option(
             "file_format",
-            "csv",
+            "pkl",
             "File format for saving loaded data",
             _member_validation(["pkl", "csv", "feather"])
         ),
