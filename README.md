@@ -15,6 +15,8 @@ pip install jpstat
 
 ## estat API
 
+estat is the official statistics site in Japan. Its api service offers data of over 250+ statistics in Japan. You need to register an api key to access to the statistics.
+
 ### Functions
 
 All functions return one or multiple pandas DataFrames.
@@ -23,7 +25,7 @@ To see a list of statistics offered by estat api
 
 ```python
 import jpstat
-stat = jpstat.estat.get_stat()
+stat = jpstat.estat.get_stat(key=YOUR_API_KEY)
 ```
 
 To search data by either the code of a statistic or some key words
@@ -61,7 +63,7 @@ jpstat.config.describe_options()
 
 ## estat File
 
-Many statistics and datasets in estat can not be accessed through API, but are excel, csv, or pdf files and can be downloaded.
+Many statistics and datasets in estat can not be accessed through API, but are excel, csv, or pdf files and can be downloaded. Here jpstat provides the functions that scrapes the information of statistics and download the files. Api key for estat is not needed, and the result is in Japanese only.
 
 ### Functions
 
@@ -80,8 +82,8 @@ data = jpstat.estatFile.get_list(statsCode="00400001")
 data = jpstat.estatFile.get_list(statsCode="00400001", year="1950")
 ```
 
-Use the information of data id and file type ("EXCEL"/"CSV"/"PDF") in `estatFile.get_list` to download the file
+Use the information of data id and file type ("EXCEL"/"CSV"/"PDF") in `estatFile.get_list` to download the file. The file would be downloaded to current folder by default
 
 ```python
-data = jpstat.estatFile.get_file(statsDataId="000029094935", file_type="EXCEL")
+jpstat.estatFile.get_file(statsDataId="000029094935", file_type="EXCEL")
 ```
