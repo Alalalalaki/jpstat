@@ -85,6 +85,7 @@ class API:
         """
         url = self.build_url(mode="getStatsData")
         params = {'statsDataId': statsDataId}
+        params.update(kwargs)
         params = {**self.params, **params}
 
         res = self.sess.get(url, params=params,)

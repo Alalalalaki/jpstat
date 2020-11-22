@@ -38,15 +38,15 @@ def scrape_stat():
 
             stats.append(d)
 
-            # sys.stdout.write("-")
-            # sys.stdout.flush()
+        sys.stdout.write(".")
+        sys.stdout.flush()
 
     df = pd.DataFrame(stats)
     return df
 
 
 def scrape_list(statsCode, year=None):
-    url_base = f"https://www.e-stat.go.jp/stat-search/files?layout=dataset&toukei={statsCode}"  # &page=1
+    url_base = f"https://www.e-stat.go.jp/stat-search/files?layout=dataset&toukei={statsCode}"
     if year:
         url_base += f"&year={year}0"
 
@@ -57,29 +57,37 @@ def scrape_list(statsCode, year=None):
         pages = int(page_info.text[2:-3])
     else:
         pages = 1
+    url_base = url_base + "&page="
 
     stats = []
 
-    tables = r.html.find(".stat-resource_list-main")
-    for t in tables:
-        d = {}
-        info = t.find(".stat-resource_list-detail-item")
-        d["STAT_NAME"] = info[0].text
-        d["STAT_CAT"] = info[1].text
-        d["SURVEY_DATE"] = info[2].text.replace("調査年月", "").replace("\xa0", "")
-        d["OPEN_DATE"] = info[3].text.replace("公開（更新）日", "").replace("\xa0", "")
-        file_links = info[4].find("a")
-        for fl in file_links:
-            if "data-file_type" in fl.attrs.keys():
-                d["API"] = True
-            else:
-                file_type = fl.attrs["data-file_type"]
-                d[file_type] = True
-        data = t.find(".stat-link_text", first=True)
-        d["@id"] = data.attrs["data-value"]
-        d["STATISTICS_NAME"] = data.find(".stat-resource_list-detail-item-text", first=True).text.replace("\u3000", "-")
+    for p in range(pages):
+        url = url_base + str(p+1)
+        r = session.get(url)
 
-        stats.append(d)
+        tables = r.html.find(".stat-resource_list-main")
+        for t in tables:
+            d = {}
+            info = t.find(".stat-resource_list-detail-item")
+            d["STAT_NAME"] = info[0].text
+            d["STAT_CAT"] = info[1].text
+            d["SURVEY_DATE"] = info[2].text.replace("調査年月", "").replace("\xa0", "")
+            d["OPEN_DATE"] = info[3].text.replace("公開（更新）日", "").replace("\xa0", "")
+            file_links = info[4].find("a")
+            for fl in file_links:
+                if "data-file_type" in fl.attrs.keys():
+                    d["API"] = True
+                else:
+                    file_type = fl.attrs["data-file_type"]
+                    d[file_type] = True
+            data = t.find(".stat-link_text", first=True)
+            d["@id"] = data.attrs["data-value"]
+            d["STATISTICS_NAME"] = data.find(".stat-resource_list-detail-item-text", first=True).text.replace("\u3000", "-")
+
+            stats.append(d)
+
+        sys.stdout.write(".")
+        sys.stdout.flush()
 
     df = pd.DataFrame(stats)
     return df

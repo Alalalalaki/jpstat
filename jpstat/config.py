@@ -17,9 +17,9 @@ _BASE_PATH = os.path.join(_home, ".jpstat")
 CFG_FILE = os.path.join(_BASE_PATH, "config.ini")
 BASE_DATA_DIR = os.path.join(_BASE_PATH, "data")
 
-
-if not os.path.isdir(_BASE_PATH):
-    os.mkdir(_BASE_PATH)
+for p in [_BASE_PATH, BASE_DATA_DIR]:
+    if not os.path.isdir(p):
+        os.mkdir(p)
 
 
 class Option:

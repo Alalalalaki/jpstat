@@ -5,6 +5,7 @@ To-Do:
   - over limit for get_data
 """
 
+import sys
 import pandas as pd
 
 from .. import config
@@ -36,6 +37,18 @@ def get_data(statsDataId, key=None, lang=None,  **kwargs):
     api = API(key=key, lang=lang)
     data = api.get_data(statsDataId=statsDataId, **kwargs)
     df = pd.DataFrame(data['STATISTICAL_DATA']['DATA_INF']['VALUE'])
+
+    res = data['STATISTICAL_DATA']['RESULT_INF']
+    while 'NEXT_KEY' in res:
+        _data = api.get_data(statsDataId=statsDataId, startPosition=res['NEXT_KEY'])
+        _df = pd.DataFrame(_data['STATISTICAL_DATA']['DATA_INF']['VALUE'])
+        df = pd.concat([df, _df], axis=0)
+
+        sys.stdout.write(".")
+        sys.stdout.flush()
+
+        res = _data['STATISTICAL_DATA']['RESULT_INF']
+
     cats = data['STATISTICAL_DATA']['CLASS_INF']['CLASS_OBJ']
     for cat in cats:
         col_name = '@' + cat['@id']

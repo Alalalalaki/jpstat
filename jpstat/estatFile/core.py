@@ -6,6 +6,7 @@ from .scrape import scrape_stat, scrape_list
 from ..util import io
 from ..util.download import download_file
 
+
 def get_stat(update=False):
     file_format = options["options.file_format"]
     path = os.path.join(options["estat.data_dir"], f"file_stat.{file_format}")
@@ -17,10 +18,11 @@ def get_stat(update=False):
     return data
 
 
-def get_list(statsCode, year=None, save=False):
+def get_list(statsCode, year=None, save=False, update=False):
     file_format = options["options.file_format"]
-    path = os.path.join(options["estat.data_dir"], f"{statsCode}.{file_format}")
-    if os.path.exists(path):
+    file_name = statsCode + '_' + str(year) if year else statsCode
+    path = os.path.join(options["estat.data_dir"], f"{file_name}.{file_format}")
+    if os.path.exists(path) & (not update):
         data = io.read(path)
     else:
         data = scrape_list(statsCode=statsCode, year=year)
@@ -42,4 +44,3 @@ def get_file(statsDataId, file_type, save_path=None, file_name=None):
         file_name = f"{statsDataId}.{type_map[file_type]}"
 
     download_file(url, save_path, file_name=file_name)
-
