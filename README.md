@@ -82,8 +82,12 @@ data = jpstat.estatFile.get_list(statsCode="00400001")
 data = jpstat.estatFile.get_list(statsCode="00400001", year="1950")
 ```
 
-Use the information of data id and file type ("EXCEL"/"CSV"/"PDF") in `estatFile.get_list` to download the file. The file would be downloaded to current folder by default
+Again, you can save the result by setting `save=True`, and from next time jpstat would first check if the result already exists.
+
+To download the file by using the information of data id and file type ("EXCEL"/"CSV"/"PDF") gotten from the result of `estatFile.get_list`
 
 ```python
 jpstat.estatFile.get_file(statsDataId="000029094935", file_type="EXCEL")
 ```
+
+The file would be downloaded to current folder by default.
