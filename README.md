@@ -15,7 +15,7 @@ pip install jpstat
 
 ## estat API
 
-estat is the official statistics site in Japan. Its api service offers data of over 250+ statistics in Japan. You need to register an api key to access to the statistics.
+[estat](https://www.e-stat.go.jp/) is the official site for government statistics in Japan. Its api service offers data of over 250+ statistics in Japan. You need to register an api key to access to the statistics.
 
 ### Functions
 
@@ -49,7 +49,7 @@ You can pass the estat api key to each function. Or you can set a configuration
 jpstat.options["estat.api_key"] = "MY_API_KEY"
 ```
 
-You can also set the language from Japanese (default: J) to English
+You can also set the language from Japanese (default, "J") to English
 
 ```python
 jpstat.options["estat.lang"] = "E"
