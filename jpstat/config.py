@@ -260,7 +260,7 @@ options = _DictOptions()
 
 
 def describe_options():
-    msg = "estat configuration options are:\n\n"
+    msg = "jpstat configuration options are:\n\n"
     for (sec, options) in _valid_options.items():
         msg += sec + "\n"
         for o in options:

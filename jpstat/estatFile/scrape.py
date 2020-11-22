@@ -75,7 +75,7 @@ def scrape_list(statsCode, year=None):
             d["OPEN_DATE"] = info[3].text.replace("公開（更新）日", "").replace("\xa0", "")
             file_links = info[4].find("a")
             for fl in file_links:
-                if "data-file_type" in fl.attrs.keys():
+                if "data-file_type" not in fl.attrs.keys():
                     d["API"] = True
                 else:
                     file_type = fl.attrs["data-file_type"]
