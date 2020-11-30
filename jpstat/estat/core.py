@@ -12,6 +12,7 @@ from .. import config
 from .api import API
 from .util.clean import clean_dict_cols
 
+
 def get_list(statsCode=None, searchWord=None, outputRaw=False, key=None, lang=None, **kwargs):
     api = API(key=key, lang=lang)
     data = api.get_list(statsCode=statsCode, searchWord=searchWord, **kwargs)
@@ -19,8 +20,8 @@ def get_list(statsCode=None, searchWord=None, outputRaw=False, key=None, lang=No
     if outputRaw:
         return df
     cols_simple = ['@id', 'STAT_NAME', 'GOV_ORG',
-                    'STATISTICS_NAME', 'TITLE',
-                    'SURVEY_DATE', 'OPEN_DATE', 'OVERALL_TOTAL_NUMBER']
+                   'STATISTICS_NAME', 'TITLE',
+                   'SURVEY_DATE', 'OPEN_DATE', 'OVERALL_TOTAL_NUMBER']
     df = df[cols_simple].pipe(clean_dict_cols, ['STAT_NAME', 'GOV_ORG', 'TITLE'])
     return df
 
@@ -33,7 +34,7 @@ def get_stat(key=None, lang=None,):
     return df
 
 
-def get_data(statsDataId, key=None, lang=None,  **kwargs):
+def get_data(statsDataId, return_note=True, key=None, lang=None,  **kwargs):
     api = API(key=key, lang=lang)
     data = api.get_data(statsDataId=statsDataId, **kwargs)
     df = pd.DataFrame(data['STATISTICAL_DATA']['DATA_INF']['VALUE'])
@@ -60,6 +61,12 @@ def get_data(statsDataId, key=None, lang=None,  **kwargs):
         df.drop(col_name, axis=1, inplace=True)
     df['Value'] = df['$']
     df.drop('$', axis=1, inplace=True)
-    note = pd.DataFrame(data['STATISTICAL_DATA']['DATA_INF']['NOTE'])
-    note = note.rename(columns={"$":"EXPLAIN"})
-    return df, note
+    if return_note:
+        try:
+            note = pd.DataFrame(data['STATISTICAL_DATA']['DATA_INF']['NOTE'])
+            note = note.rename(columns={"$": "EXPLAIN"})
+        except ValueError:
+            note = data['STATISTICAL_DATA']['DATA_INF']['NOTE']
+        return df, note
+    else:
+        return df
