@@ -77,6 +77,7 @@ def scrape_list(statsCode, year=None):
             for fl in file_links:
                 if "data-file_type" not in fl.attrs.keys():
                     d["API"] = True
+                    d["API_@id"] = list(fl.links)[0].replace("../dbview?sid=", "")
                 else:
                     file_type = fl.attrs["data-file_type"]
                     d[file_type] = True
