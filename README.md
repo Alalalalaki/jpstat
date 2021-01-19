@@ -35,10 +35,10 @@ data = jpstat.estat.get_list(statsCode="00400001")
 data = jpstat.estat.get_list(searchWord="企業")
 ```
 
-To dowload data
+To download data
 
 ```python
-data, note = jpstat.estat.statsDataId(statsCode="0000040001")
+data, note = jpstat.estat.get_data(statsDataId="0000040001")
 ```
 
 ### Configuration
