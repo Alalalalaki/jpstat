@@ -11,6 +11,7 @@ import pandas as pd
 from .. import config
 from .api import API
 from .util.clean import clean_dict_cols
+from ..util.z2h import str_z2h
 
 
 def get_list(statsCode=None, searchWord=None, outputRaw=False, key=None, lang=None, **kwargs):
@@ -23,6 +24,7 @@ def get_list(statsCode=None, searchWord=None, outputRaw=False, key=None, lang=No
                    'STATISTICS_NAME', 'TITLE',
                    'SURVEY_DATE', 'OPEN_DATE', 'OVERALL_TOTAL_NUMBER']
     df = df[cols_simple].pipe(clean_dict_cols, ['STAT_NAME', 'GOV_ORG', 'TITLE'])
+    df = df.applymap(str_z2h)
     return df
 
 
@@ -31,6 +33,7 @@ def get_stat(key=None, lang=None,):
     data = api.get_list(statsNameList="Y")
     df = pd.DataFrame(data['DATALIST_INF']['LIST_INF'])
     df = df.pipe(clean_dict_cols, ['STAT_NAME', 'GOV_ORG'])
+    df = df.applymap(str_z2h)
     return df
 
 
@@ -61,6 +64,7 @@ def get_data(statsDataId, return_note=True, key=None, lang=None,  **kwargs):
         df.drop(col_name, axis=1, inplace=True)
     df['Value'] = df['$']
     df.drop('$', axis=1, inplace=True)
+    df = df.applymap(str_z2h)
     if return_note:
         try:
             note = pd.DataFrame(data['STATISTICAL_DATA']['DATA_INF']['NOTE'])
