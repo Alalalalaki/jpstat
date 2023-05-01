@@ -60,8 +60,11 @@ def get_data(statsDataId, return_note=True, key=None, lang=None,  **kwargs):
         if isinstance(_cat_map, dict):
             _cat_map = [_cat_map]
         cat_map = {m['@code']: m['@name'] for m in _cat_map}
-        df[cat['@name']] = df[col_name].map(cat_map)
-        df.drop(col_name, axis=1, inplace=True)
+        # when lang="E" there is no @name and thus adjust the code to use the original col_name
+        new_col_name = cat.get('@name', col_name)
+        df[new_col_name] = df[col_name].map(cat_map)
+        if new_col_name != col_name:
+            df.drop(col_name, axis=1, inplace=True)
     df['Value'] = df['$']
     df.drop('$', axis=1, inplace=True)
     df = df.applymap(str_z2h)

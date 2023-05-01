@@ -56,6 +56,7 @@ jpstat.options["estat.api_key"] = "MY_API_KEY"
 ```
 
 You can also set the language from Japanese (default, "J") to English
+(However it is strongly recommended to use "J" as it often returns more information about the data)
 
 ```python
 jpstat.options["estat.lang"] = "E"
@@ -69,7 +70,7 @@ jpstat.config.describe_options()
 
 ## estat File
 
-Many statistics and datasets in estat can not be accessed through API, but are excel, csv, or pdf files and can be downloaded. Here jpstat provides the functions that scrapes the information of statistics and download the files. Api key for estat is not needed, and the result is in Japanese only.
+Many statistics and datasets in estat can not be accessed through API, but are excel, csv, or pdf files and can be downloaded. Here jpstat provides the functions that scrape the information of statistics and download the files. Api key for estat is not needed, and the result is in Japanese only.
 
 ### Functions
 
@@ -79,7 +80,7 @@ To see a list of all statistics in estat that have downloadable files
 data = jpstat.estatFile.get_stat()
 ```
 
-It will take some time to scraping the website of estat at the first time and then save the list to `options["estat.data_dir"]`. From then on, the function would first try to read the local file. You can force to scrape again by setting `update=True`.
+It will take some time to scraping the website of estat at the first time and then save the list to `options["estat.data_dir"]`. From then on, the function would first try to read the local file. You can force scraping again by setting `update=True`.
 
 To search data files by code of a statistic and the survey year (optional)
 
