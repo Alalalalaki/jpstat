@@ -28,17 +28,23 @@ import jpstat
 stat = jpstat.estat.get_stat(key=YOUR_API_KEY)
 ```
 
-To search data by either the code of a statistic or some key words
+To search data by either the code of a statistic or some keywords
 
 ```python
 data = jpstat.estat.get_list(statsCode="00400001")
 data = jpstat.estat.get_list(searchWord="企業")
 ```
 
-To download data
+To download data and data note
 
 ```python
 data, note = jpstat.estat.get_data(statsDataId="0000040001")
+```
+
+If there is an error related to accessing the data note, one can simply suppress outputting it by
+
+```python
+data = jpstat.estat.get_data(statsDataId="0000040001", return_note=False)
 ```
 
 ### Configuration
